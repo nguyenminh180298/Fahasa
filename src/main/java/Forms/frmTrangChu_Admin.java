@@ -97,11 +97,51 @@ public class frmTrangChu_Admin extends javax.swing.JFrame {
         txtgia.setText(Gia);
         txtmota.setText(MoTa);
         txthinhsp.setText(Hinh);
-        comboboxloai.setSelectedItem(Loai);
-        comboboxnhacc.setSelectedItem(NhaCC);      
+        comboboxloai.setSelectedIndex(GetIDForComboboxLoai(Loai)-1);
+        comboboxnhacc.setSelectedIndex(GetIDForComboboxNhaCC(NhaCC)-1);      
         
         ImageIcon icon = createImageIcon(Hinh);
         lbHinhSP.setIcon(icon);
+    }
+    
+    public int GetIDForComboboxLoai(String loai){
+        try {
+            Statement st=db.con.createStatement();
+            ResultSet rss=st.executeQuery("select MaLoai from loaisp where TenLoai='"+loai+"'");
+            //ResultSet rss_TenLoai=st.executeQuery("select TenLoai from loaisp");
+            while (rss.next()) {
+                int id = Integer.valueOf(rss.getString(1));
+                System.out.println("id:"+id);
+                return id;
+            }
+            //cbxID.setModel(modelCombo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("id: exception");
+            return 0;
+        }
+        System.out.println("id: outside tryctch");
+        return 0;
+    }
+    
+    public int GetIDForComboboxNhaCC(String nhacc){
+        try {
+            Statement st=db.con.createStatement();
+            ResultSet rss=st.executeQuery("select MaNhaCC from nhacungcap where TenNhaCC='"+nhacc+"'");
+            //ResultSet rss_TenLoai=st.executeQuery("select TenLoai from loaisp");
+            while (rss.next()) {
+                int id = Integer.valueOf(rss.getString(1));
+                System.out.println("id:"+id);
+                return id;
+            }
+            //cbxID.setModel(modelCombo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("id: exception");
+            return 0;
+        }
+        System.out.println("id: outside tryctch");
+        return 0;
     }
     
     public void getCBboxLoai() {

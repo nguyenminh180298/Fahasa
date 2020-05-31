@@ -5,7 +5,9 @@
  */
 package Forms;
 
+import Class.ComboBoxItem;
 import Database.Database;
+import static Forms.frmDangNhap.createImageIcon;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,12 +28,19 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
     Vector vtData_tsp=new Vector();
     Vector vtData_tlsp=new Vector();
     Vector vtData_tncc=new Vector();
-    
-    //-----------------------TAB SẢN PHẨM-------------------------------------------
+    Vector vtData_tsptimkiemtheoten=new Vector();
+    Vector vtData_tsptimkiemloai=new Vector();
+    Vector vtData_tsptimkiemnhacc=new Vector();
+    Vector vtData_tlsptimkiemtheoten=new Vector();
+    Vector vtData_tncctimkiemtheoten=new Vector();
+    /**
+     * Creates new form frmTrangChu_Admin
+     */
+   
+//-------------------------------TAB SẢN PHẨM----------------------------------------------------------
     public void loadtbsp(){
         Vector vtColumn_tsp=new Vector(); 
         Vector vtRow_tsp=new Vector(); 
-        //Vector vtData_tsp=new Vector();
         vtColumn_tsp.add("Mã sản phẩm");
         vtColumn_tsp.add("Tên sản phẩm");
         vtColumn_tsp.add("Giá");
@@ -62,6 +72,7 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         }
     }
     
+    
     //lay du lieu cua hang tu bang 
     public void displayDetailsSP(int selectedIndex){
         Vector vtSelectRow_displayDetailsSP = (Vector)vtData_tsp.get(selectedIndex);
@@ -73,22 +84,71 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         String Loai = (String)vtSelectRow_displayDetailsSP.get(5);
         String NhaCC = (String)vtSelectRow_displayDetailsSP.get(6);
         
+        
         txttensp.setText(TenSP);
         txtgia.setText(Gia);
         txtmota.setText(MoTa);
         txthinhsp.setText(Hinh);
-        comboboxloai.setSelectedItem(Loai);
-        comboboxnhacc.setSelectedItem(NhaCC);       
+        comboboxloai.setSelectedIndex(GetIDForComboboxLoai(Loai)-1);
+        comboboxnhacc.setSelectedIndex(GetIDForComboboxNhaCC(NhaCC)-1);      
+        
+        ImageIcon icon = createImageIcon(Hinh);
+        lbHinhSP.setIcon(icon);
+    }
+    
+    public int GetIDForComboboxLoai(String loai){
+        try {
+            Statement st=db.con.createStatement();
+            ResultSet rss=st.executeQuery("select MaLoai from loaisp where TenLoai='"+loai+"'");
+            //ResultSet rss_TenLoai=st.executeQuery("select TenLoai from loaisp");
+            while (rss.next()) {
+                int id = Integer.valueOf(rss.getString(1));
+                System.out.println("id:"+id);
+                return id;
+            }
+            //cbxID.setModel(modelCombo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("id: exception");
+            return 0;
+        }
+        System.out.println("id: outside tryctch");
+        return 0;
+    }
+    
+    public int GetIDForComboboxNhaCC(String nhacc){
+        try {
+            Statement st=db.con.createStatement();
+            ResultSet rss=st.executeQuery("select MaNhaCC from nhacungcap where TenNhaCC='"+nhacc+"'");
+            //ResultSet rss_TenLoai=st.executeQuery("select TenLoai from loaisp");
+            while (rss.next()) {
+                int id = Integer.valueOf(rss.getString(1));
+                System.out.println("id:"+id);
+                return id;
+            }
+            //cbxID.setModel(modelCombo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("id: exception");
+            return 0;
+        }
+        System.out.println("id: outside tryctch");
+        return 0;
     }
     
     public void getCBboxLoai() {
         //kn với database mk dùng SQL SEVER 2012
         try {
             Statement st=db.con.createStatement();
-            ResultSet rss=st.executeQuery("select TenLoai from loaisp");
+            ResultSet rss=st.executeQuery("select MaLoai,TenLoai from loaisp");
+            //ResultSet rss_TenLoai=st.executeQuery("select TenLoai from loaisp");
             while (rss.next()) {
+                String id = rss.getString(1);
+                String tenloai = rss.getString(2);
                 //modelCombo.addElement(new Manufacturer(rs.getString("id"), rs.getString("Name")));
-                comboboxloai.addItem(rss.getString(1));
+                comboboxloai.addItem(new ComboBoxItem(id, tenloai));
+                //comboboxloai.addItem(rss.getString(1));
+                cbloai.addItem(new ComboBoxItem(id, tenloai));
             }
             //cbxID.setModel(modelCombo);
         } catch (Exception e) {
@@ -100,14 +160,124 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         //kn với database mk dùng SQL SEVER 2012
         try {
             Statement st=db.con.createStatement();
-            ResultSet rss=st.executeQuery("select TenNhaCC from nhacungcap");
+            ResultSet rss=st.executeQuery("select MaNhaCC,TenNhaCC from nhacungcap");
             while (rss.next()) {
+                String id = rss.getString(1);
+                String tennhacc = rss.getString(2);
                 //modelCombo.addElement(new Manufacturer(rs.getString("id"), rs.getString("Name")));
-                comboboxnhacc.addItem(rss.getString(1));
+                comboboxnhacc.addItem(new ComboBoxItem(id, tennhacc));
+                //comboboxloai.addItem(rss.getString(1));
+                cbnhacc.addItem(new ComboBoxItem(id, tennhacc));
             }
             //cbxID.setModel(modelCombo);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    //tìm kiếm theo tên
+    public void ShowTimKiemTheoTen(String ml){
+        Vector vtColumn_tsp=new Vector(); 
+        Vector vtRow_tsp=new Vector(); 
+        vtColumn_tsp.add("Mã sản phẩm");
+        vtColumn_tsp.add("Tên sản phẩm");
+        vtColumn_tsp.add("Giá");
+        vtColumn_tsp.add("Mô tả");
+        vtColumn_tsp.add("Hình");
+        vtColumn_tsp.add("Loại sản phẩm");
+        vtColumn_tsp.add("Nhà cung cấp");
+        
+        try{
+            Statement st=db.con.createStatement();
+            ResultSet rss=st.executeQuery("SELECT * FROM sp where TenSP like '" + ml +"%' ");
+            if(rss!=null){
+                    while(rss.next()){
+                        vtRow_tsp=new Vector();
+                        vtRow_tsp.add(rss.getString(1));
+                        vtRow_tsp.add(rss.getString(2));
+                        vtRow_tsp.add(rss.getString(3));
+                        vtRow_tsp.add(rss.getString(4)); 
+                        vtRow_tsp.add(rss.getString(5));        
+                        vtRow_tsp.add(rss.getString(6));        
+                        vtRow_tsp.add(rss.getString(7));        
+                        vtData_tsptimkiemtheoten.add(vtRow_tsp);                
+                } 
+            }tbsptukhoa.setModel(new DefaultTableModel(vtData_tsptimkiemtheoten, vtColumn_tsp));
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+    }
+    
+    //tìm kiếm theo loại
+    public void ShowTimKiemTheoLoai(String ml){
+        Vector vtColumn_tsp=new Vector(); 
+        Vector vtRow_tsp=new Vector(); 
+        vtColumn_tsp.add("Mã sản phẩm");
+        vtColumn_tsp.add("Tên sản phẩm");
+        vtColumn_tsp.add("Giá");
+        vtColumn_tsp.add("Mô tả");
+        vtColumn_tsp.add("Hình");
+        vtColumn_tsp.add("Loại sản phẩm");
+        vtColumn_tsp.add("Nhà cung cấp");
+        
+        try{
+            Statement st=db.con.createStatement();
+            ResultSet rss=st.executeQuery("SELECT * FROM sp S, loaisp L where L.MaLoai=S.MaLoai and L.MaLoai='" + ml +"' ");
+            if(rss!=null){
+                    while(rss.next()){
+                        vtRow_tsp=new Vector();
+                        vtRow_tsp.add(rss.getString(1));
+                        vtRow_tsp.add(rss.getString(2));
+                        vtRow_tsp.add(rss.getString(3));
+                        vtRow_tsp.add(rss.getString(4)); 
+                        vtRow_tsp.add(rss.getString(5));        
+                        vtRow_tsp.add(rss.getString(6));        
+                        vtRow_tsp.add(rss.getString(7));        
+                        vtData_tsptimkiemloai.add(vtRow_tsp);                
+                } 
+            }tbsptukhoa.setModel(new DefaultTableModel(vtData_tsptimkiemloai, vtColumn_tsp));
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+    }
+    
+    
+    //tìm kiếm theo nhà cung cấp
+    public void ShowTimKiemTheoNhaCungCap(String mncc){
+        Vector vtColumn_tsp=new Vector(); 
+        Vector vtRow_tsp=new Vector(); 
+        vtColumn_tsp.add("Mã sản phẩm");
+        vtColumn_tsp.add("Tên sản phẩm");
+        vtColumn_tsp.add("Giá");
+        vtColumn_tsp.add("Mô tả");
+        vtColumn_tsp.add("Hình");
+        vtColumn_tsp.add("Loại sản phẩm");
+        vtColumn_tsp.add("Nhà cung cấp");
+        
+        try{
+            Statement st=db.con.createStatement();
+            ResultSet rss=st.executeQuery("SELECT * FROM sp S,nhacungcap N where N.MaNhaCC=S.MaNhaCC and N.MaNhaCC='" + mncc +"' ");
+            if(rss!=null){
+                    while(rss.next()){
+                        vtRow_tsp=new Vector();
+                        vtRow_tsp.add(rss.getString(1));
+                        vtRow_tsp.add(rss.getString(2));
+                        vtRow_tsp.add(rss.getString(3));
+                        vtRow_tsp.add(rss.getString(4)); 
+                        vtRow_tsp.add(rss.getString(5));        
+                        vtRow_tsp.add(rss.getString(6));        
+                        vtRow_tsp.add(rss.getString(7));        
+                        vtData_tsptimkiemnhacc.add(vtRow_tsp);                
+                } 
+            }tbsptukhoa.setModel(new DefaultTableModel(vtData_tsptimkiemnhacc, vtColumn_tsp));
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.toString());
         }
     }
     
@@ -239,6 +409,7 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         btntimtensp = new javax.swing.JButton();
         timloaisp = new javax.swing.JButton();
         timnhacc = new javax.swing.JButton();
+        lbHinhSP = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnthemloai = new javax.swing.JButton();
         btnnext4 = new javax.swing.JButton();
@@ -289,7 +460,6 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         btndangxuat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(967, 550));
         setSize(new java.awt.Dimension(1400, 300));
 
         tbsp.setModel(new javax.swing.table.DefaultTableModel(
@@ -536,8 +706,11 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
                 .addGap(234, 234, 234))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(spdssp)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(spdssp, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbHinhSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -564,8 +737,13 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(spdssp, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(spdssp, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbHinhSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1159,10 +1337,10 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
     private javax.swing.JButton btnxoaloai;
     private javax.swing.JButton btnxoanhacc;
     private javax.swing.JButton btnxoasp;
-    private javax.swing.JComboBox<String> cbloai;
-    private javax.swing.JComboBox<String> cbnhacc;
-    private javax.swing.JComboBox<String> comboboxloai;
-    private javax.swing.JComboBox<String> comboboxnhacc;
+    private javax.swing.JComboBox<ComboBoxItem> cbloai;
+    private javax.swing.JComboBox<ComboBoxItem> cbnhacc;
+    private javax.swing.JComboBox<ComboBoxItem> comboboxloai;
+    private javax.swing.JComboBox<ComboBoxItem> comboboxnhacc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1197,6 +1375,7 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lbHinhSP;
     private javax.swing.JScrollPane spdsloai1;
     private javax.swing.JScrollPane spdsloaitk1;
     private javax.swing.JScrollPane spdsncc;
