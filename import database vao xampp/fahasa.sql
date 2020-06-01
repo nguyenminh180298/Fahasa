@@ -64,9 +64,9 @@ CREATE TABLE `cthoadon` (
 
 CREATE TABLE `hoadon` (
   `MaHD` int(11) NOT NULL,
-  `HoTenKH` int(11) NOT NULL,
-  `SDT` int(11) NOT NULL,
-  `NgayDat` int(11) NOT NULL,
+  `HoTenKH` varchar(1000) NOT NULL,
+  `SDT` varchar(1000) NOT NULL,
+  `NgayDat` varchar(1000) NOT NULL,
   `MaNV` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -145,7 +145,7 @@ INSERT INTO `nhacungcap` (`MaNhaCC`, `TenNhaCC`, `Hinh`) VALUES
 
 CREATE TABLE `sp` (
   `MaSP` int(11) NOT NULL,
-  `TenSP` varchar(1000) NOT NULL,
+  `TenSP` varchar(1000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `Gia` int(11) NOT NULL,
   `MoTa` varchar(1000) NOT NULL,
   `Hinh` varchar(1000) NOT NULL,
@@ -166,7 +166,8 @@ INSERT INTO `sp` (`MaSP`, `TenSP`, `Gia`, `MoTa`, `Hinh`, `MaLoai`, `MaNhaCC`) V
 (6, 'dochoi', 123456, 'gbfgbf', 'gbgfbf', 3, 1),
 (7, 'ga', 123, 'ga', 'ga', 2, 3),
 (8, 'sdfdsvd', 123, 'fbfb', 'vbcbcvb', 1, 3),
-(9, 'sdfdsvd', 123, 'fbfb', 'vbcbcvb', 1, 2);
+(9, 'sdfdsvd', 123, 'fbfb', 'vbcbcvb', 1, 2),
+(10, 'đồ chơi', 123456, 'mô tả', 'sdfsdf', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -274,7 +275,7 @@ ALTER TABLE `loaisp`
 -- AUTO_INCREMENT cho bảng `nguoidung`
 --
 ALTER TABLE `nguoidung`
-  MODIFY `MaNV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `MaNV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `nhacungcap`
@@ -286,7 +287,7 @@ ALTER TABLE `nhacungcap`
 -- AUTO_INCREMENT cho bảng `sp`
 --
 ALTER TABLE `sp`
-  MODIFY `MaSP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `MaSP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
