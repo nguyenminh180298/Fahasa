@@ -318,7 +318,31 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         txttenloai.setText(TenLoai);
         txthinhloai.setText(Hinh);
     }
-    
+    public void ShowTimKiemTheoTenLoai(String ml){
+        Vector vtColumn_tlsp=new Vector(); 
+        Vector vtRow_tlsp=new Vector(); 
+        vtColumn_tlsp.add("Mã loại");
+        vtColumn_tlsp.add("Tên loại");
+        vtColumn_tlsp.add("Hình");
+        
+        try{
+            Statement st=db.con.createStatement();
+            ResultSet rss=st.executeQuery("SELECT * FROM loaisp where TenLoai like '" + ml +"%' ");
+            if(rss!=null){
+                    while(rss.next()){
+                        vtRow_tlsp=new Vector();
+                        vtRow_tlsp.add(rss.getString(1));
+                        vtRow_tlsp.add(rss.getString(2));
+                        vtRow_tlsp.add(rss.getString(3));   
+                        vtData_tlsptimkiemtheoten.add(vtRow_tlsp);                
+                } 
+            }tbloaitukhoa.setModel(new DefaultTableModel(vtData_tlsptimkiemtheoten, vtColumn_tlsp));
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+    }
     //----------------------------------------------------TAB NHA CUNG CAP------------------------------
     public void loadtbncc(){
         Vector vtColumn_tncc=new Vector(); 
@@ -346,7 +370,44 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         }
     }
     
+    //lay du lieu cua hang tu bang 
+    public void displayDetailsNCC(int selectedIndex){
+        Vector vtSelectRow_displayDetailsNCC = (Vector)vtData_tncc.get(selectedIndex);
+        String MaNhaCC = (String)vtSelectRow_displayDetailsNCC.get(0);
+        String TenNhaCC = (String)vtSelectRow_displayDetailsNCC.get(1);
+        String Hinh = (String)vtSelectRow_displayDetailsNCC.get(2);
+        
+        txttennhacc.setText(TenNhaCC);
+        txthinhnhacc.setText(Hinh);
+        
+    }
     
+    //tìm kiếm theo tên
+    public void ShowTimKiemTheoTenNhaCC(String ml){
+        Vector vtColumn_tncc=new Vector(); 
+        Vector vtRow_tncc=new Vector(); 
+        vtColumn_tncc.add("Mã nhà cung cấp");
+        vtColumn_tncc.add("Tên nhà cung cấp");
+        vtColumn_tncc.add("Hình");
+        
+        try{
+            Statement st=db.con.createStatement();
+            ResultSet rss=st.executeQuery("SELECT * FROM nhacungcap where TenNhaCC like '" + ml +"%' ");
+            if(rss!=null){
+                    while(rss.next()){
+                        vtRow_tncc=new Vector();
+                        vtRow_tncc.add(rss.getString(1));
+                        vtRow_tncc.add(rss.getString(2));
+                        vtRow_tncc.add(rss.getString(3));   
+                        vtData_tncctimkiemtheoten.add(vtRow_tncc);                
+                } 
+            }tbnhacctukhoa.setModel(new DefaultTableModel(vtData_tncctimkiemtheoten, vtColumn_tncc));
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+    }
 
     /**
      * Creates new form frmTrangChu_QLKho
