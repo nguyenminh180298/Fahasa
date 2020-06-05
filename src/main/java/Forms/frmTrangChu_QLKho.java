@@ -10,12 +10,14 @@ import Database.Database;
 import static Forms.frmDangNhap.createImageIcon;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -629,10 +631,25 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         );
 
         btnthemsp.setText("Thêm");
+        btnthemsp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthemspActionPerformed(evt);
+            }
+        });
 
         btnsuasp.setText("Sửa");
+        btnsuasp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsuaspActionPerformed(evt);
+            }
+        });
 
         btnxoasp.setText("Xóa");
+        btnxoasp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoaspActionPerformed(evt);
+            }
+        });
 
         btnfirst1.setText("<<<");
 
@@ -1184,6 +1201,11 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         btnfirst3.setText("<<<");
 
         btntimnhacc.setText("Tìm");
+        btntimnhacc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntimnhaccActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1336,6 +1358,78 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         int selectedRow = tbsp.getSelectedRow();
         displayDetailsSP(selectedRow);
     }//GEN-LAST:event_tbspMouseClicked
+
+    private void btnthemspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemspActionPerformed
+        try{
+            PreparedStatement ps = db.con.prepareStatement("insert into nhacungcap values(?,?,?)");
+            ps.setInt(1,tbnhacc.getRowCount()+1);
+            ps.setString(2, txttennhacc.getText());
+            ps.setString(3, txthinhnhacc.getText());
+            int chk = ps.executeUpdate();
+            if(chk>0){
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                //xóa tất cả dòng trc đó
+                DefaultTableModel dtm = (DefaultTableModel) tbnhacc.getModel();
+                dtm.setRowCount(0);
+                //load lại table
+                loadtbncc();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }     
+    }//GEN-LAST:event_btnthemspActionPerformed
+
+    private void btnsuaspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaspActionPerformed
+        try{
+            PreparedStatement ps = db.con.prepareStatement("update nhacungcap set TenNhaCC=?,Hinh=? where MaNhaCC=?");
+            ps.setString(3, tbnhacc.getValueAt(tbnhacc.getSelectedRow(), 0).toString());
+            ps.setString(1, txttennhacc.getText());
+            ps.setString(2, txthinhnhacc.getText());
+            int chk = ps.executeUpdate();
+            if(chk>0){
+                JOptionPane.showMessageDialog(this, "Sửa thành công");
+                //xóa tất cả dòng trc đó
+                DefaultTableModel dtm = (DefaultTableModel) tbnhacc.getModel();
+                dtm.setRowCount(0);
+                //load lại table
+                loadtbncc();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }       
+    }//GEN-LAST:event_btnsuaspActionPerformed
+
+    private void btnxoaspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaspActionPerformed
+        try{
+            PreparedStatement ps = db.con.prepareStatement("Delete from nhacungcap where MaNhaCC=?");
+            ps.setString(1, tbnhacc.getValueAt(tbnhacc.getSelectedRow(), 0).toString());
+            if(JOptionPane.showConfirmDialog(this, "Xóa nhà cung cấp này?","Xác nhận",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                ps.executeUpdate();
+                DefaultTableModel dtm = (DefaultTableModel) tbnhacc.getModel();
+                dtm.setRowCount(0);
+                //load lại table
+                loadtbncc();
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }       
+    }//GEN-LAST:event_btnxoaspActionPerformed
+
+    private void btntimnhaccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimnhaccActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) tbnhacctukhoa.getModel();
+        dtm.setRowCount(0);
+        String ml = txttukhoancc.getText();
+        ShowTimKiemTheoTenNhaCC(ml);  
+    }//GEN-LAST:event_btntimnhaccActionPerformed
 
     /**
      * @param args the command line arguments

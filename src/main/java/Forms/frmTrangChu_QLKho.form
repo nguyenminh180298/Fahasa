@@ -365,16 +365,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnthemspActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnsuasp">
               <Properties>
                 <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnsuaspActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnxoasp">
               <Properties>
                 <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnxoaspActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnfirst1">
               <Properties>
@@ -1313,6 +1322,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="T&#xec;m"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btntimnhaccActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
