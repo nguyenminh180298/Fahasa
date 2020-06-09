@@ -60,7 +60,7 @@ public class frmDangNhap extends javax.swing.JFrame {
         
         getContentPane().setBackground( Color.white );
         setTitle("Fahasa");
-        setIconImage(ImageIO.read(new File("C:\\Users\\Administrator\\Documents\\NetBeansProjects\\Fahasa\\src\\main\\java\\Forms\\resources\\fahasa-logo-rectangle1.png"))
+        setIconImage(ImageIO.read(new File("C:\\Users\\Van\\Documents\\NetBeansProjects\\Fahasa\\src\\main\\java\\Forms\\resources\\fahasa-logo-rectangle1.png"))
         );
     }
 

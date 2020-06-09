@@ -261,9 +261,8 @@ public class test1 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton6)
                         .addComponent(jButton7))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5)
-                        .addComponent(jButton4)))
+                    .addComponent(jButton4)
+                    .addComponent(jButton5))
                 .addGap(13, 13, 13))
         );
 
