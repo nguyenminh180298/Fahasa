@@ -7,8 +7,8 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
     <dependencies>
@@ -42,6 +42,10 @@
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
-    </dependencies>
-    
+    <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+    </dependencies>    
 </project>

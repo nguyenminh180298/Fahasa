@@ -24,6 +24,10 @@ public class Database {
             JOptionPane.showMessageDialog(null,"Kết nối cơ sở dữ liệu không thành công.");
         }
     }
+
+    public void setValue(double d, String marks, String đồ_chơi) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

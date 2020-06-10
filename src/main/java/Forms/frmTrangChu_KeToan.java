@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Database.Database;
 import static Forms.frmDangNhap.createImageIcon;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -25,6 +26,14 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -37,6 +46,7 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
     Vector vtData_tsptimkiemtheoten=new Vector();
     Vector vtData_tsptimkiemloai=new Vector();
     Vector vtData_tsptimkiemnhacc=new Vector();
+    private CategoryDataset dataset;
     /**
      * Creates new form frmTrangChu_KeToan
      */
@@ -285,6 +295,7 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
         }
     }
     
+    
     public frmTrangChu_KeToan() {
         initComponents();
         loadtbsp();
@@ -341,7 +352,9 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
         btntimsptheoncc = new javax.swing.JButton();
         lbHinhSP = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        pnlReport = new javax.swing.JPanel();
         btndangxuat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -684,23 +697,42 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Sản phẩm", jPanel1);
 
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Thông tin thống kê");
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jButton1.setText("Show chart");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        pnlReport.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Report", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 0, 18))); // NOI18N
+        pnlReport.setLayout(new javax.swing.BoxLayout(pnlReport, javax.swing.BoxLayout.LINE_AXIS));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jButton1)
+                .addContainerGap(671, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9)
-                .addContainerGap(460, Short.MAX_VALUE))
+                .addComponent(pnlReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlReport, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+
+        jPanel2.add(jPanel4);
 
         jTabbedPane1.addTab("Thống kê", jPanel2);
 
@@ -787,6 +819,35 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
         ShowTimKiemTheoTen(ml);  
     }//GEN-LAST:event_btntimtenspActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.setValue(1.0,"Đồ Chơi","Sản Phẩm Bán Chạy");
+        dataset.setValue(3.0,"Đồ Chơi","An Toàn");
+        dataset.setValue(5.0,"Đồ Chơi","Đánh Giá Người Dùng");
+        dataset.setValue(6.0,"Dụng Cụ","An Toàn");
+        dataset.setValue(4.0,"Dụng Cụ","Đánh Giá Người Dùng");
+        dataset.setValue(10.0,"Dụng Cụ","Sản Phẩm Bán Chạy");
+        dataset.setValue(2.0,"Sách","Đánh Giá Người Dùng");
+        dataset.setValue(4.0,"Sách","Sản Phẩm Bán Chạy");
+        dataset.setValue(6.0,"Sách","An Toàn");
+        
+        JFreeChart jchart = ChartFactory.createBarChart("Thống Kê Sản Phẩm", "Loại Sản Phẩm", "Điểm", dataset, PlotOrientation.VERTICAL, true , true , false);
+        
+        CategoryPlot plot = jchart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.black);
+        
+        ChartFrame chartFrm = new ChartFrame("Thống Kê Sản Phẩm", jchart, true);
+        chartFrm.setVisible(true);
+        chartFrm.setSize(500, 400);
+        ChartPanel chartPanel = new ChartPanel(jchart);
+        
+        pnlReport.removeAll();
+        pnlReport.add(chartPanel);
+        pnlReport.updateUI();
+         
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -835,6 +896,7 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
     private javax.swing.JComboBox<ComboBoxItem> cbnhacc;
     private javax.swing.JComboBox<ComboBoxItem> comboboxloai;
     private javax.swing.JComboBox<ComboBoxItem> comboboxnhacc;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -845,17 +907,18 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbHinhSP;
+    private javax.swing.JPanel pnlReport;
     private javax.swing.JScrollPane spdssp;
     private javax.swing.JScrollPane spdssptk;
     private javax.swing.JTable tbsp;
