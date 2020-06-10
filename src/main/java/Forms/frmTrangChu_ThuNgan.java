@@ -280,7 +280,6 @@ public class frmTrangChu_ThuNgan extends javax.swing.JFrame {
             System.out.println(ex.toString());
         }
     }
-//-------------------------------TAB SẢN PHẨM----------------------------------------------------------
     
     public frmTrangChu_ThuNgan() {
         initComponents();
