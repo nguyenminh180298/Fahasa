@@ -763,6 +763,11 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         );
 
         btntimtensp.setText("Tìm");
+        btntimtensp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntimtenspActionPerformed(evt);
+            }
+        });
 
         timloaisp.setText("Tìm");
 
@@ -998,6 +1003,11 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         btnpre4.setText("<");
 
         btntimloaisp.setText("Tìm");
+        btntimloaisp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntimloaispActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1122,10 +1132,25 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         );
 
         btnthemnhacc.setText("Thêm");
+        btnthemnhacc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthemnhaccActionPerformed(evt);
+            }
+        });
 
         btnsuanhacc.setText("Sửa");
+        btnsuanhacc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsuanhaccActionPerformed(evt);
+            }
+        });
 
         btnxoanhacc.setText("Xóa");
+        btnxoanhacc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoanhaccActionPerformed(evt);
+            }
+        });
 
         jPanel12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -1430,6 +1455,90 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         String ml = txttukhoancc.getText();
         ShowTimKiemTheoTenNhaCC(ml);  
     }//GEN-LAST:event_btntimnhaccActionPerformed
+
+    private void btnthemnhaccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemnhaccActionPerformed
+        // TODO add your handling code here:
+        try{
+            PreparedStatement ps = db.con.prepareStatement("insert into nhacungcap values(?,?,?)");
+            ps.setInt(1,tbnhacc.getRowCount()+1);
+            ps.setString(2, txttennhacc.getText());
+            ps.setString(3, txthinhnhacc.getText());
+            int chk = ps.executeUpdate();
+            if(chk>0){
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                //xóa tất cả dòng trc đó
+                DefaultTableModel dtm = (DefaultTableModel) tbnhacc.getModel();
+                dtm.setRowCount(0);
+                //load lại table
+                loadtbncc();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+    }//GEN-LAST:event_btnthemnhaccActionPerformed
+
+    private void btnsuanhaccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuanhaccActionPerformed
+        // TODO add your handling code here:
+        try{
+            PreparedStatement ps = db.con.prepareStatement("update nhacungcap set TenNhaCC=?,Hinh=? where MaNhaCC=?");
+            ps.setString(3, tbnhacc.getValueAt(tbnhacc.getSelectedRow(), 0).toString());
+            ps.setString(1, txttennhacc.getText());
+            ps.setString(2, txthinhnhacc.getText());
+            int chk = ps.executeUpdate();
+            if(chk>0){
+                JOptionPane.showMessageDialog(this, "Sửa thành công");
+                //xóa tất cả dòng trc đó
+                DefaultTableModel dtm = (DefaultTableModel) tbnhacc.getModel();
+                dtm.setRowCount(0);
+                //load lại table
+                loadtbncc();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+    }//GEN-LAST:event_btnsuanhaccActionPerformed
+
+    private void btnxoanhaccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoanhaccActionPerformed
+        // TODO add your handling code here:
+         try{
+            PreparedStatement ps = db.con.prepareStatement("Delete from nhacungcap where MaNhaCC=?");
+            ps.setString(1, tbnhacc.getValueAt(tbnhacc.getSelectedRow(), 0).toString());
+            if(JOptionPane.showConfirmDialog(this, "Xóa nhà cung cấp này?","Xác nhận",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                ps.executeUpdate();
+                DefaultTableModel dtm = (DefaultTableModel) tbnhacc.getModel();
+                dtm.setRowCount(0);
+                //load lại table
+                loadtbncc();
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+    }//GEN-LAST:event_btnxoanhaccActionPerformed
+
+    private void btntimtenspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimtenspActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) tbsptukhoa.getModel();
+        dtm.setRowCount(0);
+        String ml = txttukhoasp.getText();
+        ShowTimKiemTheoTen(ml);  
+    }//GEN-LAST:event_btntimtenspActionPerformed
+
+    private void btntimloaispActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimloaispActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) tbloaitukhoa.getModel();
+        dtm.setRowCount(0);
+        String ml = txttukhoaloai.getText();
+        ShowTimKiemTheoTenLoai(ml);  
+    }//GEN-LAST:event_btntimloaispActionPerformed
 
     /**
      * @param args the command line arguments
