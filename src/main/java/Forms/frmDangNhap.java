@@ -23,6 +23,7 @@ import Forms.frmTrangChu_QLKho;
 import Forms.frmTrangChu_ThuNgan;
 import Forms.frmTrangChu_KeToan;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -105,6 +106,11 @@ public class frmDangNhap extends javax.swing.JFrame {
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
+            }
+        });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
             }
         });
 
@@ -348,6 +354,13 @@ public class frmDangNhap extends javax.swing.JFrame {
         frmKhoiPhucTaiKhoan frm=new frmKhoiPhucTaiKhoan();
         frm.setVisible(true);
     }//GEN-LAST:event_btnRestorepageMouseClicked
+
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_UP){
+            
+        }
+    }//GEN-LAST:event_btnLoginKeyPressed
 
     /**
      * @param args the command line arguments
