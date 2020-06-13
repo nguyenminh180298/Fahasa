@@ -56,6 +56,15 @@ public class TextCheck {
         }
         return false;
     }
+    
+     public static boolean hasOnlyChar(String text){
+        if(text.matches("[a-z]+")){
+            //chỉ có chữ
+            return true;
+        }
+        return false;
+    }
+    
     public static String generateRandomString(int length){
         boolean useLetters = true;
         boolean useNumbers = true;
