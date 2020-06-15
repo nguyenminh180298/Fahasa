@@ -269,6 +269,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txttukhoasp">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txttukhoaspActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

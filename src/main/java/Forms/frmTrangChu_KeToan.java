@@ -699,7 +699,7 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
-        jButton1.setText("Show chart");
+        jButton1.setText("Tìm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -714,12 +714,12 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jButton1)
-                .addContainerGap(671, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlReport, javax.swing.GroupLayout.DEFAULT_SIZE, 952, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -821,31 +821,49 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(1.0,"Đồ Chơi","Sản Phẩm Bán Chạy");
-        dataset.setValue(3.0,"Đồ Chơi","An Toàn");
-        dataset.setValue(5.0,"Đồ Chơi","Đánh Giá Người Dùng");
-        dataset.setValue(6.0,"Dụng Cụ","An Toàn");
-        dataset.setValue(4.0,"Dụng Cụ","Đánh Giá Người Dùng");
-        dataset.setValue(10.0,"Dụng Cụ","Sản Phẩm Bán Chạy");
-        dataset.setValue(2.0,"Sách","Đánh Giá Người Dùng");
-        dataset.setValue(4.0,"Sách","Sản Phẩm Bán Chạy");
-        dataset.setValue(6.0,"Sách","An Toàn");
+        String January = "0";
         
-        JFreeChart jchart = ChartFactory.createBarChart("Thống Kê Sản Phẩm", "Loại Sản Phẩm", "Điểm", dataset, PlotOrientation.VERTICAL, true , true , false);
-        
-        CategoryPlot plot = jchart.getCategoryPlot();
-        plot.setRangeGridlinePaint(Color.black);
-        
-        ChartFrame chartFrm = new ChartFrame("Thống Kê Sản Phẩm", jchart, true);
-        chartFrm.setVisible(true);
-        chartFrm.setSize(500, 400);
-        ChartPanel chartPanel = new ChartPanel(jchart);
-        
-        pnlReport.removeAll();
-        pnlReport.add(chartPanel);
-        pnlReport.updateUI();
-         
+        try {
+            Statement st = db.con.createStatement();
+          
+            ResultSet Jan = st.executeQuery("SELECT sum(TongTien) as total from hoadon WHERE MONTH(NgayDat)=1");
+            
+            while(Jan.next()) {
+                January = Jan.getString(1) == null ? "0" : Jan.getString(1);
+            }  
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+           
+            dataset.setValue(14,"Tổng Doanh Thu","Tháng 1");
+            dataset.setValue(12,"Tổng Doanh Thu","Tháng 2");
+            dataset.setValue(14,"Tổng Doanh Thu","Tháng 3");
+            dataset.setValue(42,"Tổng Doanh Thu","Tháng 4");
+            dataset.setValue(21,"Tổng Doanh Thu","Tháng 5");
+            dataset.setValue(23,"Tổng Doanh Thu", "Tháng 6");
+            dataset.setValue(11,"Tổng Doanh Thu","Tháng 7");
+            dataset.setValue(12,"Tổng Doanh Thu","Tháng 8");
+            dataset.setValue(21,"Tổng Doanh Thu","Tháng 9");
+            dataset.setValue(31,"Tổng Doanh Thu","Tháng 10");
+            dataset.setValue(12,"Tổng Doanh Thu","Tháng 11");
+            dataset.setValue(34,"Tổng Doanh Thu","Tháng 12");
+
+            JFreeChart jchart = ChartFactory.createBarChart("Thống Kê Doanh Thu", "Năm 2020", "Doanh Thu", dataset, PlotOrientation.VERTICAL, true , true , false);
+
+            CategoryPlot plot = jchart.getCategoryPlot();
+            plot.setRangeGridlinePaint(Color.black);
+
+            ChartPanel chartPanel = new ChartPanel(jchart);
+
+            ChartFrame chartFrm = new ChartFrame("Thống Kê Doanh Thu", jchart, true);
+            chartFrm.setVisible(true);
+            chartFrm.setSize(500, 400);
+
+            pnlReport.removeAll();
+            pnlReport.add(chartPanel);
+            pnlReport.updateUI();
+            
+        } catch (SQLException ex) {
+            System.out.println("Loi: "  + ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
     
     /**

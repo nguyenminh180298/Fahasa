@@ -1102,6 +1102,12 @@ public class frmTrangChu_Admin extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel7.setText("Nhập tên");
 
+        txttukhoasp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttukhoaspActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -3190,6 +3196,10 @@ public class frmTrangChu_Admin extends javax.swing.JFrame {
         ShowTimKiemTheoTenNVHD(mnv);   
     }//GEN-LAST:event_cbtennvItemStateChanged
 
+    private void txttukhoaspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttukhoaspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttukhoaspActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3277,7 +3287,6 @@ public class frmTrangChu_Admin extends javax.swing.JFrame {
     private javax.swing.JComboBox<ComboBoxItem> cbchucvu;
     private javax.swing.JComboBox<ComboBoxItem> cbloai;
     private javax.swing.JComboBox<ComboBoxItem> cbnhacc;
-    private javax.swing.JComboBox<ComboBoxItem> cbnhacc1;
     private javax.swing.JComboBox<ComboBoxItem> cbtennv;
     private javax.swing.JComboBox<ComboBoxItem> comboboxchucvu;
     private javax.swing.JComboBox<ComboBoxItem> comboboxloai;
@@ -3313,7 +3322,6 @@ public class frmTrangChu_Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -3340,7 +3348,6 @@ public class frmTrangChu_Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel27;
-    private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
