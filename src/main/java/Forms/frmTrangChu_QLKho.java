@@ -476,8 +476,6 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txttukhoasp = new javax.swing.JTextField();
         btntimtensp = new javax.swing.JButton();
-        timloaisp = new javax.swing.JButton();
-        timnhacc = new javax.swing.JButton();
         lbHinhSP = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnthemloai = new javax.swing.JButton();
@@ -714,6 +712,12 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         jLabel35.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel35.setText("Chọn nhà cung cấp");
 
+        cbnhacc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbnhaccItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
         jPanel27Layout.setHorizontalGroup(
@@ -736,6 +740,12 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
 
         jLabel33.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel33.setText("Chọn loại");
+
+        cbloai.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbloaiItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -785,10 +795,6 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
             }
         });
 
-        timloaisp.setText("Tìm");
-
-        timnhacc.setText("Tìm");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -825,10 +831,7 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
                                     .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btntimtensp)
-                                    .addComponent(timloaisp)
-                                    .addComponent(timnhacc)))
+                                .addComponent(btntimtensp))
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -854,13 +857,9 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
                                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btntimtensp))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(timloaisp))
+                                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(timnhacc))))
+                                .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1132,6 +1131,11 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
                 "Mã nhà cung cấp", "Tên nhà cung cấp", "Hình"
             }
         ));
+        tbnhacc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbnhaccMouseClicked(evt);
+            }
+        });
         spdsncc.setViewportView(tbnhacc);
 
         jPanel11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -1731,6 +1735,28 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
         // TODO add your handling code here:
         showFileChooserNhaCC(); 
     }//GEN-LAST:event_btnchonnhaccActionPerformed
+
+    private void cbloaiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbloaiItemStateChanged
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) tbsptukhoa.getModel();
+        dtm.setRowCount(0);
+        String ml = cbloai.getItemAt(this.cbloai.getSelectedIndex()).get_id();
+        ShowTimKiemTheoLoai(ml);   
+    }//GEN-LAST:event_cbloaiItemStateChanged
+
+    private void cbnhaccItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbnhaccItemStateChanged
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) tbsptukhoa.getModel();
+        dtm.setRowCount(0);
+        String mncc = cbnhacc.getItemAt(this.cbnhacc.getSelectedIndex()).get_id();
+        ShowTimKiemTheoNhaCungCap(mncc);   
+    }//GEN-LAST:event_cbnhaccItemStateChanged
+
+    private void tbnhaccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbnhaccMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = tbnhacc.getSelectedRow();
+        displayDetailsNCC(selectedRow);
+    }//GEN-LAST:event_tbnhaccMouseClicked
     private void showFileChooserDemo(){
       final JFileChooser  fileDialog = new JFileChooser();
       int returnVal = fileDialog.showOpenDialog(this);
@@ -1857,8 +1883,6 @@ public class frmTrangChu_QLKho extends javax.swing.JFrame {
     private javax.swing.JTable tbnhacctukhoa;
     private javax.swing.JTable tbsp;
     private javax.swing.JTable tbsptukhoa;
-    private javax.swing.JButton timloaisp;
-    private javax.swing.JButton timnhacc;
     private javax.swing.JTextField txtgia;
     private javax.swing.JTextField txthinhloai;
     private javax.swing.JTextField txthinhnhacc;

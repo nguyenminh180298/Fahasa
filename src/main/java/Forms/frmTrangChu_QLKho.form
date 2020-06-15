@@ -97,11 +97,7 @@
                                           <Component id="jPanel25" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btntimtensp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="timloaisp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="timnhacc" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="btntimtensp" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jPanel6" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -138,15 +134,9 @@
                                           <Component id="btntimtensp" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jPanel25" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="timloaisp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jPanel25" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jPanel27" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="timnhacc" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jPanel27" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -512,6 +502,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cbnhacc">
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbnhaccItemStateChanged"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ComboBoxItem&gt;"/>
                   </AuxValues>
@@ -558,6 +551,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cbloai">
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbloaiItemStateChanged"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ComboBoxItem&gt;"/>
                   </AuxValues>
@@ -614,16 +610,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btntimtenspActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="timloaisp">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xec;m"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="timnhacc">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xec;m"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbHinhSP">
             </Component>
@@ -1138,6 +1124,9 @@
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbnhaccMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
