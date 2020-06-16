@@ -826,15 +826,22 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
         try {
             Statement st = db.con.createStatement();
           
-            ResultSet Jan = st.executeQuery("SELECT sum(TongTien) as total from hoadon WHERE MONTH(NgayDat)=1");
-            
-            while(Jan.next()) {
-                January = Jan.getString(1) == null ? "0" : Jan.getString(1);
-            }  
+            ResultSet Jan = st.executeQuery("SELECT TongTien from hoadon WHERE MONTH(NgayDat)=6");
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            /*while(Jan.next()) {
+                //January = Jan.getString(1) == null ? "0" : Jan.getString(1);
+                
+            } */
+            if(Jan!=null){
+                System.out.println(""+Jan.getString(1));
+            }
+            dataset.setValue(Integer.parseInt(Jan.getString(1)),"Tổng Doanh Thu","Tháng 1");
+            
+            
+            
            
-            dataset.setValue(14,"Tổng Doanh Thu","Tháng 1");
-            dataset.setValue(12,"Tổng Doanh Thu","Tháng 2");
+            /*dataset.setValue(14,"Tổng Doanh Thu","Tháng 1");
+            dataset.setValue(12,"Tổng Doanh Thu","Tháng 2");s
             dataset.setValue(14,"Tổng Doanh Thu","Tháng 3");
             dataset.setValue(42,"Tổng Doanh Thu","Tháng 4");
             dataset.setValue(21,"Tổng Doanh Thu","Tháng 5");
@@ -844,7 +851,7 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
             dataset.setValue(21,"Tổng Doanh Thu","Tháng 9");
             dataset.setValue(31,"Tổng Doanh Thu","Tháng 10");
             dataset.setValue(12,"Tổng Doanh Thu","Tháng 11");
-            dataset.setValue(34,"Tổng Doanh Thu","Tháng 12");
+            dataset.setValue(34,"Tổng Doanh Thu","Tháng 12");*/
 
             JFreeChart jchart = ChartFactory.createBarChart("Thống Kê Doanh Thu", "Năm 2020", "Doanh Thu", dataset, PlotOrientation.VERTICAL, true , true , false);
 
