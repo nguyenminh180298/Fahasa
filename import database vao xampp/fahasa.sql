@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 31, 2020 lúc 02:01 AM
+-- Thời gian đã tạo: Th6 16, 2020 lúc 04:53 PM
 -- Phiên bản máy phục vụ: 10.3.16-MariaDB
 -- Phiên bản PHP: 7.3.7
 
@@ -51,10 +51,31 @@ INSERT INTO `chucvu` (`VaiTro`, `ChucVu`) VALUES
 
 CREATE TABLE `cthoadon` (
   `id` int(11) NOT NULL,
-  `TenSP` varchar(1000) NOT NULL,
+  `MaSP` int(11) NOT NULL,
   `Gia` int(11) NOT NULL,
-  `SL` int(11) NOT NULL
+  `SL` int(11) NOT NULL,
+  `MaHD` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `cthoadon`
+--
+
+INSERT INTO `cthoadon` (`id`, `MaSP`, `Gia`, `SL`, `MaHD`) VALUES
+(1, 1, 10000, 3, 1),
+(2, 2, 100000, 2, 2),
+(3, 3, 67000, 2, 3),
+(4, 4, 12000, 5, 4),
+(5, 5, 10000, 10, 5),
+(6, 2, 100000, 1, 6),
+(7, 1, 10000, 12, 7),
+(8, 1, 10000, 3, 8),
+(9, 4, 12000, 20, 9),
+(10, 3, 67000, 5, 10),
+(11, 1, 10000, 2, 11),
+(12, 2, 100000, 1, 12),
+(13, 2, 100000, 2, 13),
+(14, 4, 12000, 10, 14);
 
 -- --------------------------------------------------------
 
@@ -66,9 +87,29 @@ CREATE TABLE `hoadon` (
   `MaHD` int(11) NOT NULL,
   `HoTenKH` varchar(1000) NOT NULL,
   `SDT` varchar(1000) NOT NULL,
-  `NgayDat` varchar(1000) NOT NULL,
-  `MaNV` int(11) NOT NULL
+  `NgayDat` date NOT NULL,
+  `MaNV` int(11) NOT NULL,
+  `TongTien` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hoadon`
+--
+
+INSERT INTO `hoadon` (`MaHD`, `HoTenKH`, `SDT`, `NgayDat`, `MaNV`, `TongTien`) VALUES
+(2, 'nguyen van a', '123456789', '2020-06-01', 1, 0),
+(3, 'nguyen van b', '321654987', '2020-01-15', 1, 0),
+(4, 'a', '1', '2020-02-02', 1, 0),
+(5, 'a', '1', '2020-04-20', 1, 0),
+(6, 'a', '1', '2020-03-26', 1, 0),
+(7, 'b', '1', '2020-05-28', 1, 0),
+(8, 'a', '1', '2020-07-03', 1, 0),
+(9, 'a', '654', '2020-08-05', 1, 0),
+(10, 'assddadsd', '1', '2020-09-27', 1, 0),
+(11, 'asdas', '1', '2020-10-17', 1, 0),
+(12, 'ascssc', '1', '2020-11-16', 1, 0),
+(13, 'asda', '1', '2020-11-01', 1, 0),
+(14, '1111', '1', '2020-12-04', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -114,7 +155,8 @@ INSERT INTO `nguoidung` (`MaNV`, `TenNV`, `SDT`, `DiaChi`, `VaiTro`, `Email`) VA
 (1, 'admin', 123456789, '...', '1', 'gate.braille@gmail.com'),
 (2, 'ketoan', 123456789, '...', '2', ''),
 (3, 'thungan', 123456789, '...', '3', ''),
-(4, 'thukho', 123456789, '...', '4', '');
+(4, 'thukho', 123456789, '...', '4', ''),
+(5, 'minh123', 123456789, '....', '3', 'asdasdasdasd');
 
 -- --------------------------------------------------------
 
@@ -167,7 +209,8 @@ INSERT INTO `sp` (`MaSP`, `TenSP`, `Gia`, `MoTa`, `Hinh`, `MaLoai`, `MaNhaCC`) V
 (7, 'ga', 123, 'ga', 'ga', 2, 3),
 (8, 'sdfdsvd', 123, 'fbfb', 'vbcbcvb', 1, 3),
 (9, 'sdfdsvd', 123, 'fbfb', 'vbcbcvb', 1, 2),
-(10, 'đồ chơi', 123456, 'mô tả', 'sdfsdf', 1, 1);
+(10, 'đồ chơi', 123456, 'mô tả', 'sdfsdf', 1, 1),
+(11, 'asdasda', 123, 'asdasdasd', 'C:\\Users\\Administrator\\Documents\\HinhTron.class', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -186,7 +229,7 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`TK`, `MK`, `MaNV`) VALUES
-('admin', 'zBZ64', 1),
+('admin', 'admin', 1),
 ('ketoan', 'ketoan', 2),
 ('thukho', 'thukho', 4),
 ('thungan', 'thungan', 3);
@@ -257,13 +300,13 @@ ALTER TABLE `chucvu`
 -- AUTO_INCREMENT cho bảng `cthoadon`
 --
 ALTER TABLE `cthoadon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `hoadon`
 --
 ALTER TABLE `hoadon`
-  MODIFY `MaHD` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `loaisp`
