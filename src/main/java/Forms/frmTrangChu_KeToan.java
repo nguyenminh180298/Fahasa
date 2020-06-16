@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -825,17 +826,73 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
         
         try {
             Statement st = db.con.createStatement();
-          
-            ResultSet Jan = st.executeQuery("SELECT TongTien from hoadon WHERE MONTH(NgayDat)=6");
+            Statement st1 = db.con.createStatement();
+            Statement st2 = db.con.createStatement();
+            Statement st3 = db.con.createStatement();
+            Statement st4 = db.con.createStatement();
+            Statement st5 = db.con.createStatement();
+            Statement st6 = db.con.createStatement();
+            Statement st7 = db.con.createStatement();
+            Statement st8 = db.con.createStatement();
+            Statement st9 = db.con.createStatement();
+            Statement st10 = db.con.createStatement();
+            Statement st11 = db.con.createStatement();
+            ResultSet Thang1 = st.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=1 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang2 = st1.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=2 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang3 = st2.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=3 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang4 = st3.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=4 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang5 = st4.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=5 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang6 = st5.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=6 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang7 = st6.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=7 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang8 = st7.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=8 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang9 = st8.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=9 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang10 = st9.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=10 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang11 = st10.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=11 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
+            ResultSet Thang12 = st11.executeQuery("SELECT Sum(b.SL*b.Gia) as TongTien from hoadon a, cthoadon b WHERE a.MaHD=b.MaHD and MONTH(a.NgayDat)=12 and YEAR(a.NgayDat)='"+Calendar.getInstance().get(Calendar.YEAR)+"'");
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            /*while(Jan.next()) {
-                //January = Jan.getString(1) == null ? "0" : Jan.getString(1);
-                
-            } */
-            if(Jan!=null){
-                System.out.println(""+Jan.getString(1));
+            
+            if(Thang1.next()) {
+                dataset.setValue(Integer.parseInt(Thang1.getString(1)),"Tổng Doanh Thu","Tháng 1");
             }
-            dataset.setValue(Integer.parseInt(Jan.getString(1)),"Tổng Doanh Thu","Tháng 1");
+            if(Thang2.next()) {
+                dataset.setValue(Integer.parseInt(Thang2.getString(1)),"Tổng Doanh Thu","Tháng 2");
+            }
+            if(Thang3.next()) {
+                dataset.setValue(Integer.parseInt(Thang3.getString(1)),"Tổng Doanh Thu","Tháng 3");
+            }
+            if(Thang4.next()) {
+                dataset.setValue(Integer.parseInt(Thang4.getString(1)),"Tổng Doanh Thu","Tháng 4");
+            }
+            if(Thang5.next()) {
+                dataset.setValue(Integer.parseInt(Thang5.getString(1)),"Tổng Doanh Thu","Tháng 5");
+            }
+            if(Thang6.next()) {
+                dataset.setValue(Integer.parseInt(Thang6.getString(1)),"Tổng Doanh Thu","Tháng 6");
+            }
+            if(Thang7.next()) {
+                dataset.setValue(Integer.parseInt(Thang7.getString(1)),"Tổng Doanh Thu","Tháng 7");
+            }
+            if(Thang8.next()) {
+                dataset.setValue(Integer.parseInt(Thang8.getString(1)),"Tổng Doanh Thu","Tháng 8");
+            }
+            if(Thang9.next()) {
+                dataset.setValue(Integer.parseInt(Thang9.getString(1)),"Tổng Doanh Thu","Tháng 9");
+            }
+            if(Thang10.next()) {
+                dataset.setValue(Integer.parseInt(Thang10.getString(1)),"Tổng Doanh Thu","Tháng 10");
+            }
+            if(Thang11.next()) {
+                dataset.setValue(Integer.parseInt(Thang11.getString(1)),"Tổng Doanh Thu","Tháng 11");
+            }
+            if(Thang12.next()) {
+                dataset.setValue(Integer.parseInt(Thang12.getString(1)),"Tổng Doanh Thu","Tháng 12");
+            }
+            
+            
+            /*if(Jan!=null){
+                System.out.println(""+Jan.getString(1));
+            }*/
+            
             
             
             
@@ -853,7 +910,7 @@ public class frmTrangChu_KeToan extends javax.swing.JFrame {
             dataset.setValue(12,"Tổng Doanh Thu","Tháng 11");
             dataset.setValue(34,"Tổng Doanh Thu","Tháng 12");*/
 
-            JFreeChart jchart = ChartFactory.createBarChart("Thống Kê Doanh Thu", "Năm 2020", "Doanh Thu", dataset, PlotOrientation.VERTICAL, true , true , false);
+            JFreeChart jchart = ChartFactory.createBarChart("Thống Kê Doanh Thu", "Năm "+Calendar.getInstance().get(Calendar.YEAR), "Doanh Thu", dataset, PlotOrientation.VERTICAL, true , true , false);
 
             CategoryPlot plot = jchart.getCategoryPlot();
             plot.setRangeGridlinePaint(Color.black);
