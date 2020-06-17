@@ -329,10 +329,12 @@ public class frmTrangChu_ThuNgan extends javax.swing.JFrame {
         String TenNV = (String)vtSelectRow_displayDetailsHD.get(4);
         
         
+        
         txttenkhachhang.setText(TenKH);
         txtsdt.setText(SDT);
         txtngaydat.setText(NgayDat);
         comboboxnhanvien.setSelectedIndex(GetIDForComboboxNhanVien(TenNV)-1);
+        txtmahd.setText(MaHD);
     }
     public int GetIDForComboboxNhanVien(String nhanvien){
         try {
@@ -450,24 +452,6 @@ public class frmTrangChu_ThuNgan extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    /*public int GetGiaForComboboxTenSanPham(String sanpham){
-        try {
-            Statement st=db.con.createStatement();
-            ResultSet rss=st.executeQuery("select Gia from sp where MaSP='"+sanpham+"'");
-            while (rss.next()) {
-                String gia = rss.getString(1);
-                System.out.println("id:"+gia);
-                txtgiasp.setText(gia);
-            }
-            //cbxID.setModel(modelCombo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("id: exception");
-            return 0;
-        }
-        System.out.println("id: outside tryctch");
-        return 0;
-    }*/
     
     public frmTrangChu_ThuNgan() {
         initComponents();
