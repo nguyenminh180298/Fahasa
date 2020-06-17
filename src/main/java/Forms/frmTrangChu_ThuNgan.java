@@ -1243,7 +1243,11 @@ public class frmTrangChu_ThuNgan extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             PreparedStatement ps = db.con.prepareStatement("insert into cthoadon values(?,?,?,?,?)");
-            ps.setInt(1,tbcthd.getRowCount()+1);
+             Statement stmt = db.con.createStatement();
+            //Retrieving the data
+            ResultSet rs = stmt.executeQuery("select count(*) from cthoadon");
+            rs.next();
+            ps.setInt(1,Integer.parseInt(rs.getString(1))+1);
             ps.setString(2, comboboxsanpham.getItemAt(this.comboboxsanpham.getSelectedIndex()).get_id());
             ps.setString(3, txtgiasp.getText());
             ps.setString(4, txtsl.getText());
