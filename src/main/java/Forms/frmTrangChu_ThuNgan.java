@@ -453,6 +453,24 @@ public class frmTrangChu_ThuNgan extends javax.swing.JFrame {
         }
     }
     
+    public void ShowGiaSP(String ml){
+        
+        
+        try{
+            Statement st=db.con.createStatement();
+            ResultSet rss=st.executeQuery("SELECT Gia FROM sp where MaSP='" + ml +"' ");
+            if(rss!=null){
+                    while(rss.next()){
+                        txtgiasp.setText(rss.getString(1));          
+                } 
+            }
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+    }
+    
     public frmTrangChu_ThuNgan() {
         initComponents();
         loadtbsp();
@@ -981,6 +999,12 @@ public class frmTrangChu_ThuNgan extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel13.setText("Số lượng");
 
+        comboboxsanpham.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboboxsanphamItemStateChanged(evt);
+            }
+        });
+
         btnthemct.setText("Thêm");
         btnthemct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1071,11 +1095,9 @@ public class frmTrangChu_ThuNgan extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(spcthd, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel10)
+                                .addComponent(spcthd, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -1248,6 +1270,12 @@ public class frmTrangChu_ThuNgan extends javax.swing.JFrame {
             System.out.println(e.toString());
         }
     }//GEN-LAST:event_btnthemctActionPerformed
+
+    private void comboboxsanphamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboboxsanphamItemStateChanged
+        // TODO add your handling code here:
+        String ml = comboboxsanpham.getItemAt(this.comboboxsanpham.getSelectedIndex()).get_id();
+        ShowGiaSP(ml); 
+    }//GEN-LAST:event_comboboxsanphamItemStateChanged
 
     /**
      * @param args the command line arguments

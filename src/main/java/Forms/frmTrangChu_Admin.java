@@ -2771,6 +2771,7 @@ public class frmTrangChu_Admin extends javax.swing.JFrame {
         //xóa tất cả dòng trc đó
         DefaultTableModel dtm = (DefaultTableModel) tbsptukhoa.getModel();
         dtm.setRowCount(0);
+        
         String ml = cbloai.getItemAt(this.cbloai.getSelectedIndex()).get_id();
         ShowTimKiemTheoLoai(ml);    
     }//GEN-LAST:event_cbloaiItemStateChanged
