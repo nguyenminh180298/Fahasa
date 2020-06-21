@@ -61,7 +61,7 @@ public class frmDangNhap extends javax.swing.JFrame {
         
         getContentPane().setBackground( Color.white );
         setTitle("Fahasa");
-        setIconImage(ImageIO.read(new File("C:\\Users\\Administrator\\Documents\\NetBeansProjects\\Fahasa\\src\\main\\java\\Forms\\resources\\fahasa-logo-rectangle1.png"))
+        setIconImage(ImageIO.read(new File("C:\\Users\\Asus\\Desktop\\java3\\Fahasa\\src\\main\\java\\Forms\\resources\\fahasa-logo-rectangle1.png"))
         );
     }
 
@@ -78,7 +78,7 @@ public class frmDangNhap extends javax.swing.JFrame {
         txtPassword = new javax.swing.JLabel();
         txtUsername = new javax.swing.JLabel();
         edtUsername = new javax.swing.JTextField();
-        ImageIcon icon = createImageIcon("C:\\Users\\Administrator\\Documents\\NetBeansProjects\\Fahasa\\src\\main\\java\\Forms\\resources\\fahasa-logo-200.png");
+        ImageIcon icon = createImageIcon("C:\\Users\\Asus\\Desktop\\java3\\Fahasa\\src\\main\\java\\Forms\\resources\\fahasa-logo-200.png");
         imgIcon = new javax.swing.JLabel(icon);
         btnLogin = new javax.swing.JButton();
         txtForgotpass = new javax.swing.JLabel();

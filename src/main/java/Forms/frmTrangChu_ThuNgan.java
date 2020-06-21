@@ -915,6 +915,11 @@ public class frmTrangChu_ThuNgan extends javax.swing.JFrame {
         jLabel22.setText("Nhân viên");
 
         btnthem.setText("Thêm");
+        btnthem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -1276,6 +1281,40 @@ public class frmTrangChu_ThuNgan extends javax.swing.JFrame {
         String ml = comboboxsanpham.getItemAt(this.comboboxsanpham.getSelectedIndex()).get_id();
         ShowGiaSP(ml); 
     }//GEN-LAST:event_comboboxsanphamItemStateChanged
+
+    private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+        try{
+            PreparedStatement ps = db.con.prepareStatement("insert into hoadon values(?,?,?,?,?,0)");
+            Statement stmt = db.con.createStatement();
+            //Retrieving the data
+            ResultSet rs = stmt.executeQuery("select count(*) from hoadon");
+            rs.next();
+            ps.setInt(1,Integer.parseInt(rs.getString(1))+2);
+            ps.setString(2, txttenkhachhang.getText());
+            ps.setString(3, txtsdt.getText());          
+            Date date = new Date();
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy.MM.dd");
+            String reportDate = ft.format(date);
+            txtngaydat.setText(reportDate);  
+            ps.setString(4, txtngaydat.getText());
+            ps.setString(5, comboboxnhanvien.getItemAt(this.comboboxnhanvien.getSelectedIndex()).get_id());
+            int chk = ps.executeUpdate();
+            if(chk>0){
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                //xóa tất cả dòng trc đó
+                DefaultTableModel dtm = (DefaultTableModel) tbhoadon.getModel();
+                dtm.setRowCount(0);
+                //load lại table
+                loadtbhd();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+    }//GEN-LAST:event_btnthemActionPerformed
 
     /**
      * @param args the command line arguments

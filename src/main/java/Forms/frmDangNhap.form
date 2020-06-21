@@ -115,7 +115,7 @@
     <Component class="javax.swing.JLabel" name="imgIcon">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JLabel(icon)"/>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="ImageIcon icon = createImageIcon(&quot;C:\\Users\\Administrator\\Documents\\NetBeansProjects\\Fahasa\\src\\main\\java\\Forms\\resources\\fahasa-logo-200.png&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="ImageIcon icon = createImageIcon(&quot;C:\\Users\\Asus\\Desktop\\java3\\Fahasa\\src\\main\\java\\Forms\\resources\\fahasa-logo-200.png&quot;);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btnLogin">
